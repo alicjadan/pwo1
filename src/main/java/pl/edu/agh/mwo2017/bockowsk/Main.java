@@ -21,6 +21,7 @@ public class Main {
 		Main main = new Main();
 		main.printSchools();
 		main.close();
+		main.jdbcTest();
 	}
 
 	public Main() {
@@ -51,7 +52,7 @@ public class Main {
 
 			// STEP 3: Open a connection
 			System.out.println("Connecting to database...");
-			conn = DriverManager.getConnection("jdbc:sqlite:school.db", "", "");
+			conn = DriverManager.getConnection("jdbc:sqlite:./src/main/resources/school.db", "", "");
 
 			// STEP 4: Execute a query
 			System.out.println("Creating statement...");
