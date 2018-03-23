@@ -5,11 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -51,6 +49,21 @@ public class Main {
 				}
 			}
 		}
+	}
+	
+	private void addNewData() {
+		Student student1=new Student("Pawel", "Smieszny", "12023001345");
+		Student student2=new Student("Pawel", "Grzes", "12023345001");
+		Student student3=new Student("Andrzej", "Smakolyk", "12023050134");
+		SchoolClass klasa1=new SchoolClass(2016, 2018, "Matematyka");
+		klasa1.addStudent(student1);klasa1.addStudent(student2);klasa1.addStudent(student3);
+		School szkola=new School("Politechnika Krakowska", "Warszawska 100");
+		szkola.addClasses(klasa1);
+		Transaction transaction=session.beginTransaction();
+		session.save(szkola);
+		transaction.commit();
+		
+		
 	}
 
 	private void jdbcTest() {

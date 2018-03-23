@@ -13,6 +13,19 @@ public class SchoolClass implements java.io.Serializable {
 
 	private Set<Student> students;
 
+	// KONSTRUKTORY:
+
+	public SchoolClass(int startYear, int currentYear, String profile) {
+		super();
+		this.startYear = startYear;
+		this.currentYear = currentYear;
+		this.profile = profile;
+	}
+
+	public SchoolClass() {
+		super();
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -59,12 +72,16 @@ public class SchoolClass implements java.io.Serializable {
 
 	public void setStudents(Set<Student> studentsTemp) {
 		if (students == null) {
-			students=new HashSet<Student>();
+			students = new HashSet<Student>();
 		}
 		this.students = studentsTemp;
 	}
 
 	public String toString() {
 		return "Class: " + profile + " (Started: " + getStartYear() + ", Current year: " + getCurrentYear() + ")";
+	}
+
+	protected void addStudent(Student student) {
+		students.add(student);
 	}
 }
