@@ -1,5 +1,6 @@
 package pl.edu.agh.mwo2017.bockowsk;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class SchoolClass implements java.io.Serializable {
@@ -8,7 +9,10 @@ public class SchoolClass implements java.io.Serializable {
 	private int startYear;
 	private int currentYear;
 	private String profile;
-	
+	private int school_id;
+
+	private Set<Student> students;
+
 	public long getId() {
 		return id;
 	}
@@ -39,6 +43,25 @@ public class SchoolClass implements java.io.Serializable {
 
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+
+	public int getSchool_id() {
+		return school_id;
+	}
+
+	public void setSchool_id(int school_id) {
+		this.school_id = school_id;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> studentsTemp) {
+		if (students == null) {
+			students=new HashSet<Student>();
+		}
+		this.students = studentsTemp;
 	}
 
 	public String toString() {

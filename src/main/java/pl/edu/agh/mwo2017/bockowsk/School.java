@@ -1,11 +1,15 @@
 package pl.edu.agh.mwo2017.bockowsk;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @SuppressWarnings("serial")
 public class School implements java.io.Serializable {
 
 	private long id;
 	private String name;
 	private String address;
+	private Set<SchoolClass> classes;
 
 	public School() {
 	}
@@ -33,9 +37,21 @@ public class School implements java.io.Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String toString() {
 		return "School: " + getName() + " (" + getAddress() + ")";
-}
+	}
+
+	public Set<SchoolClass> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(Set<SchoolClass> classes) {
+		if (classes==null) {
+			classes=new HashSet<SchoolClass>();
+		}
+		this.classes = classes;
+	}
+	
 
 }

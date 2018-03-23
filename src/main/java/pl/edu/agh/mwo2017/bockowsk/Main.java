@@ -20,8 +20,11 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.printSchools();
-		main.close();
 		main.jdbcTest();
+		System.out.println("list classes");
+		main.printSchools();
+		main.close();
+
 	}
 
 	public Main() {
@@ -40,6 +43,13 @@ public class Main {
 		System.out.println("### Schools and classes");
 		for (School s : schools) {
 			System.out.println(s);
+			for (SchoolClass c: s.getClasses()) {
+				System.out.println("\t"+c);
+				// students
+				for (Student student: c.getStudents()) {
+					System.out.println("\t\t"+student);
+				}
+			}
 		}
 	}
 
