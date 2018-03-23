@@ -67,11 +67,11 @@ public class Teacher {
 		this.pesel = pesel;
 	}
 
-	public Set<SchoolClass> getLectures() {
+	public Set<SchoolClass> getCharges() {
 		return charges;
 	}
 
-	public void setLectures(Set<SchoolClass> lectures) {
+	public void setCharges(Set<SchoolClass> lectures) {
 		this.charges = lectures;
 	}
 	

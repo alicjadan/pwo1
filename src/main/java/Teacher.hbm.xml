@@ -6,11 +6,16 @@
 		<id name="id" column="id" type="long">
 			<generator class="native"></generator>
 		</id>
-		
+
 		<property name="name" column="name" type="string"></property>
 		<property name="surname" column="surname" type="string"></property>
 		<property name="title" column="title" type="string"></property>
 		<property name="pesel" column="pesel" type="string"></property>
+		<set name="charges" table="classes_teachers" cascade="save-update">
+			<key column="teacher_id" />
+			<many-to-many class="pl.edu.agh.mwo2017.bockowsk.SchoolClass" />
+		</set>
+
 
 	</class>
 </hibernate-mapping>
