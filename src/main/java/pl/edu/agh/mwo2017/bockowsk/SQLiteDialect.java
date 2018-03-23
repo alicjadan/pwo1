@@ -18,6 +18,7 @@ import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.hibernate.Hibernate;
 
 public class SQLiteDialect extends Dialect {
+	@SuppressWarnings("deprecation")
 	public SQLiteDialect() {
 		super();
 		registerColumnType(Types.BIT, "integer");
