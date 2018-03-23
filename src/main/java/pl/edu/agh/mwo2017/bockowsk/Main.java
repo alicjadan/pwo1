@@ -21,6 +21,7 @@ public class Main {
 		main.jdbcTest();
 		System.out.println("list classes");
 		main.printSchools();
+		main.addNewData();
 		main.close();
 
 	}

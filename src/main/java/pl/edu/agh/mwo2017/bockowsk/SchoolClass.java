@@ -82,6 +82,9 @@ public class SchoolClass implements java.io.Serializable {
 	}
 
 	protected void addStudent(Student student) {
+		if (students == null ) {
+			students=new HashSet<Student>();
+		}
 		students.add(student);
 	}
 }

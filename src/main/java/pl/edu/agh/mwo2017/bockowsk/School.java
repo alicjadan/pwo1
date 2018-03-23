@@ -60,6 +60,9 @@ public class School implements java.io.Serializable {
 	}
 
 	protected void addClasses(SchoolClass sc) {
+		if (classes == null ) {
+			classes=new HashSet<SchoolClass>();
+		}
 		classes.add(sc);
 	}
 
