@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -17,11 +18,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main main = new Main();
-		main.printSchools();
-		main.jdbcTest();
-		System.out.println("list classes");
-		main.printSchools();
-		main.addNewData();
+		//main.printSchools();
+		//main.jdbcTest();
+		//main.printSchools();
+		//main.addNewData();
+		main.executeQueries();
 		main.close();
 
 	}
@@ -65,6 +66,13 @@ public class Main {
 		transaction.commit();
 		
 		
+	}
+	
+	private void executeQueries() {
+		String hql="FROM School";
+		Query query=session.createQuery(hql);
+		List results=query.list();
+		System.out.println(results);
 	}
 
 	private void jdbcTest() {
