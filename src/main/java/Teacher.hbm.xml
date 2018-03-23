@@ -13,7 +13,7 @@
 		<property name="pesel" column="pesel" type="string"></property>
 		<set name="charges" table="classes_teachers" cascade="save-update">
 			<key column="teacher_id" />
-			<many-to-many class="pl.edu.agh.mwo2017.bockowsk.SchoolClass" />
+			<many-to-many column="class_id" class="pl.edu.agh.mwo2017.bockowsk.SchoolClass" />
 		</set>
 
 

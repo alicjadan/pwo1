@@ -53,6 +53,7 @@ public class Main {
 		// szkołę z klasą o profilu mat-fiz oraz obecnym roku większym bądź równym 2
 		System.out.println("==> Cwiczenie 6");
 		main.executeQuery6();
+		main.addNewData2();
 		main.close();
 
 	}
@@ -96,6 +97,24 @@ public class Main {
 		Transaction transaction = session.beginTransaction();
 		session.save(szkola);
 		transaction.commit();
+	}
+
+	private void addNewData2() {
+		Teacher teacher1=new Teacher("Jacek", "dajda", "dr", "80210298675");
+		Teacher teacher2=new Teacher("Wojciech", "Fracz", "dr", "82210255675");
+		String hql = "FROM SchoolClass as classes";
+		Query query = session.createQuery(hql);
+		List<SchoolClass> results = query.list();
+		for (SchoolClass s : results) {
+			System.out.println("dodaje: "+s+" do: "+teacher1);
+			s.addTeacher(teacher1);
+			System.out.println("dodaje: "+s+" do: "+teacher2);
+			s.addTeacher(teacher2);
+		}
+		Transaction transaction = session.beginTransaction();
+		session.save(teacher1);
+		session.save(teacher2);
+		transaction.commit();
 
 	}
 
@@ -115,7 +134,7 @@ public class Main {
 			System.out.println(s);
 		}
 	}
-	
+
 	private void executeQuery2() {
 		String hql = "FROM School as school WHERE school.name='UE'";
 		Query query = session.createQuery(hql);
@@ -124,7 +143,6 @@ public class Main {
 			System.out.println("DRY RUN: session.delete(s)");
 		}
 	}
-
 
 	private int executeQuery3() {
 		List<Object> wynik = session
@@ -148,16 +166,16 @@ public class Main {
 				"SELECT schools.id,count(schoolClasses.profile) as ile FROM schools,schoolClasses WHERE schools.id=schoolClasses.school_id GROUP BY schools.name HAVING ile >= 2")
 				.addScalar("id", Hibernate.INTEGER).list();
 		System.out.println("==> szkoly majace wiecej niz 2 klasy: ");
-		for (Integer s: wynik) {
-			String hql="FROM School as schools WHERE schools.id="+s.intValue();
-			Query query=session.createQuery(hql);
-			List<School> schools=query.list();
-			for (School sh: schools) {
+		for (Integer s : wynik) {
+			String hql = "FROM School as schools WHERE schools.id=" + s.intValue();
+			Query query = session.createQuery(hql);
+			List<School> schools = query.list();
+			for (School sh : schools) {
 				System.out.println(sh);
 			}
 		}
 	}
-	
+
 	private void executeQuery6() {
 		String hql = "SELECT s FROM School as s INNER JOIN s.classes classes WHERE classes.profile='mat-fiz' AND classes.currentYear >= 2";
 		Query query = session.createQuery(hql);
@@ -166,7 +184,6 @@ public class Main {
 			System.out.println(s);
 		}
 	}
-
 
 	private void jdbcTest() {
 		Connection conn = null;

@@ -93,13 +93,16 @@ public class SchoolClass implements java.io.Serializable {
 		return teachers;
 	}
 
-	public void setTeachers(Set<Teacher> teachers) {
-		this.teachers = teachers;
+	public void setTeachers(Set<Teacher> tempTeachers) {
+		if (teachers == null) {
+			teachers=new HashSet<Teacher>();
+		}
+		this.teachers = tempTeachers;
 	}
-	public void addTeacher(Teacher teacher) {
+	public void addTeacher(Teacher tempTeacher) {
 		if (teachers == null) {
 			HashSet<Teacher> teachers=new HashSet<Teacher>();
 		}
-		teachers.add(teacher);
+		teachers.add(tempTeacher);
 	}
 }

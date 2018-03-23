@@ -18,7 +18,7 @@
 		</set>
 		<set name="teachers" table="classes_teachers" cascade="save-update">
 			<key column="class_id" />
-			<many-to-many class="pl.edu.agh.mwo2017.bockowsk.Teacher" />
+			<many-to-many column="teacher_id" class="pl.edu.agh.mwo2017.bockowsk.Teacher" />
 		</set>
 
 

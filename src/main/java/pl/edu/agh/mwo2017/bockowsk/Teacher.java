@@ -72,6 +72,9 @@ public class Teacher {
 	}
 
 	public void setCharges(Set<SchoolClass> lectures) {
+		if (charges == null) {
+			charges=new HashSet<SchoolClass>();
+		}
 		this.charges = lectures;
 	}
 	
@@ -85,7 +88,7 @@ public class Teacher {
 	@Override
 	public String toString() {
 		return "Teacher [id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", pesel=" + pesel
-				+ ", lectures=" + charges + "]";
+				+ ", charges=" + charges + "]";
 	}
 	
 // HELPERS
