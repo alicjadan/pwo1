@@ -18,11 +18,31 @@ public class Main {
 
 	public static void main(String[] args) {
 		Main main = new Main();
-		//main.printSchools();
-		//main.jdbcTest();
-		//main.printSchools();
-		//main.addNewData();
+		// main.printSchools();
+		// main.jdbcTest();
+		// main.printSchools();
+		// main.addNewData();
 		main.executeQueries();
+		main.executeQuery1();
+		// 1. Chcemy znaleźć tylko szkoły, których nazwa to UE. (Podpowiedź: użyj
+		// składni
+		// WHERE tabela.kolumna='wartosc')
+		
+		// 2. Wykorzystując funkcję session.delete() i analogię do tworzenia obiektów,
+		// usuń wszystkie odnalezione w powyższym punkcie szkoły.
+		
+		// 3. Napisz zapytanie, które zwraca ilość szkół w bazie (Podpowiedź: użyj
+		// funkcji
+		// COUNT())
+		
+		// 4. Napisz zapytanie, które zwraca ilość studentów w bazie.
+		
+		// 5. Napisz zapytanie, które zwraca wszystkie szkoły o liczbie klas większej
+		// lub równej 2.
+		
+		// 6. Poniższe zapytanie wyszukuje szkołę, w której występuje klasa o profilu
+		// “biol-chem”. Bazując na tym zapytaniu napisz nowe zapytanie, które wyszukuje
+		// szkołę z klasą o profilu mat-fiz oraz obecnym roku większym bądź równym 2
 		main.close();
 
 	}
@@ -43,36 +63,50 @@ public class Main {
 		System.out.println("### Schools and classes");
 		for (School s : schools) {
 			System.out.println(s);
-			for (SchoolClass c: s.getClasses()) {
-				System.out.println("\t"+c);
+			for (SchoolClass c : s.getClasses()) {
+				System.out.println("\t" + c);
 				// students
-				for (Student student: c.getStudents()) {
-					System.out.println("\t\t"+student);
+				for (Student student : c.getStudents()) {
+					System.out.println("\t\t" + student);
 				}
 			}
 		}
 	}
-	
+
 	private void addNewData() {
-		Student student1=new Student("Pawel", "Smieszny", "12023001345");
-		Student student2=new Student("Pawel", "Grzes", "12023345001");
-		Student student3=new Student("Andrzej", "Smakolyk", "12023050134");
-		SchoolClass klasa1=new SchoolClass(2016, 2018, "Matematyka");
-		klasa1.addStudent(student1);klasa1.addStudent(student2);klasa1.addStudent(student3);
-		School szkola=new School("Politechnika Krakowska", "Warszawska 100");
+		Student student1 = new Student("Pawel", "Smieszny", "12023001345");
+		Student student2 = new Student("Pawel", "Grzes", "12023345001");
+		Student student3 = new Student("Andrzej", "Smakolyk", "12023050134");
+		SchoolClass klasa1 = new SchoolClass(2016, 2018, "Matematyka");
+		klasa1.addStudent(student1);
+		klasa1.addStudent(student2);
+		klasa1.addStudent(student3);
+		School szkola = new School("Politechnika Krakowska", "Warszawska 100");
 		szkola.addClasses(klasa1);
-		Transaction transaction=session.beginTransaction();
+		Transaction transaction = session.beginTransaction();
 		session.save(szkola);
 		transaction.commit();
-		
+
+	}
+
+	private void executeQueries() {
+		String hql = "FROM School";
+		Query query = session.createQuery(hql);
+		List results = query.list();
+		System.out.println(results);
+
 		
 	}
-	
-	private void executeQueries() {
-		String hql="FROM School";
-		Query query=session.createQuery(hql);
-		List results=query.list();
-		System.out.println(results);
+
+	private void executeQuery1() {
+		String hql = "FROM School WHERE School='UE'";
+		Query query = session.createQuery(hql);
+		List<School> results = query.list();
+		for (School s: results) {			
+			System.out.println(s);
+		}
+
+		
 	}
 
 	private void jdbcTest() {
