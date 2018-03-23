@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -23,26 +24,35 @@ public class Main {
 		// main.printSchools();
 		// main.addNewData();
 		main.executeQueries();
-		main.executeQuery1();
+
 		// 1. Chcemy znaleźć tylko szkoły, których nazwa to UE. (Podpowiedź: użyj
 		// składni
 		// WHERE tabela.kolumna='wartosc')
-		
+		System.out.println("==> Cwiczenie 1");
+		main.executeQuery1();
 		// 2. Wykorzystując funkcję session.delete() i analogię do tworzenia obiektów,
 		// usuń wszystkie odnalezione w powyższym punkcie szkoły.
-		
+		System.out.println("==> Cwiczenie 2");
+		main.executeQuery2();
 		// 3. Napisz zapytanie, które zwraca ilość szkół w bazie (Podpowiedź: użyj
 		// funkcji
 		// COUNT())
-		
+		int ile = main.executeQuery3();
+		System.out.println("==> Cwiczenie 3");
+		System.out.println("Ile szkol: " + ile);
 		// 4. Napisz zapytanie, które zwraca ilość studentów w bazie.
-		
+		System.out.println("==> Cwiczenie 4");
+		ile = main.executeQuery4();
+		System.out.println("Ilu studentow: " + ile);
 		// 5. Napisz zapytanie, które zwraca wszystkie szkoły o liczbie klas większej
 		// lub równej 2.
-		
+		System.out.println("==> Cwiczenie 5");
+		main.executeQuery5();
 		// 6. Poniższe zapytanie wyszukuje szkołę, w której występuje klasa o profilu
 		// “biol-chem”. Bazując na tym zapytaniu napisz nowe zapytanie, które wyszukuje
 		// szkołę z klasą o profilu mat-fiz oraz obecnym roku większym bądź równym 2
+		System.out.println("==> Cwiczenie 6");
+		main.executeQuery6();
 		main.close();
 
 	}
@@ -74,14 +84,14 @@ public class Main {
 	}
 
 	private void addNewData() {
-		Student student1 = new Student("Pawel", "Smieszny", "12023001345");
-		Student student2 = new Student("Pawel", "Grzes", "12023345001");
-		Student student3 = new Student("Andrzej", "Smakolyk", "12023050134");
-		SchoolClass klasa1 = new SchoolClass(2016, 2018, "Matematyka");
+		Student student1 = new Student("Tomasz", "Salmon", "12023099345");
+		Student student2 = new Student("Pawel", "Rys", "12023345999");
+		Student student3 = new Student("Piotr", "Bor", "12023076134");
+		SchoolClass klasa1 = new SchoolClass(2016, 2018, "Ekonomia");
 		klasa1.addStudent(student1);
 		klasa1.addStudent(student2);
 		klasa1.addStudent(student3);
-		School szkola = new School("Politechnika Krakowska", "Warszawska 100");
+		School szkola = new School("UE", "Rakowicka 99");
 		szkola.addClasses(klasa1);
 		Transaction transaction = session.beginTransaction();
 		session.save(szkola);
@@ -95,19 +105,68 @@ public class Main {
 		List results = query.list();
 		System.out.println(results);
 
-		
 	}
 
 	private void executeQuery1() {
-		String hql = "FROM School WHERE School='UE'";
+		String hql = "FROM School as school WHERE school.name='UE'";
 		Query query = session.createQuery(hql);
 		List<School> results = query.list();
-		for (School s: results) {			
+		for (School s : results) {
 			System.out.println(s);
 		}
-
-		
 	}
+	
+	private void executeQuery2() {
+		String hql = "FROM School as school WHERE school.name='UE'";
+		Query query = session.createQuery(hql);
+		List<School> results = query.list();
+		for (School s : results) {
+			System.out.println("DRY RUN: session.delete(s)");
+		}
+	}
+
+
+	private int executeQuery3() {
+		List<Object> wynik = session
+				.createSQLQuery("SELECT count(school.name),school.name from schools as school GROUP BY school.name")
+				.list();
+		int result = wynik.size();
+		return result;
+	}
+
+	private int executeQuery4() {
+		String hql = "FROM Student as students";
+		Query query = session.createQuery(hql);
+		List<School> results = query.list();
+		int howMany = results.size();
+		return howMany;
+
+	}
+
+	private void executeQuery5() {
+		List<Integer> wynik = session.createSQLQuery(
+				"SELECT schools.id,count(schoolClasses.profile) as ile FROM schools,schoolClasses WHERE schools.id=schoolClasses.school_id GROUP BY schools.name HAVING ile >= 2")
+				.addScalar("id", Hibernate.INTEGER).list();
+		System.out.println("==> szkoly majace wiecej niz 2 klasy: ");
+		for (Integer s: wynik) {
+			String hql="FROM School as schools WHERE schools.id="+s.intValue();
+			Query query=session.createQuery(hql);
+			List<School> schools=query.list();
+			for (School sh: schools) {
+				System.out.println(sh);
+			}
+		}
+	}
+	
+	private void executeQuery6() {
+		String hql = "SELECT s FROM School as s INNER JOIN s.classes classes WHERE classes.profile='mat-fiz' AND classes.currentYear >= 2";
+		Query query = session.createQuery(hql);
+		List<School> results = query.list();
+		for (School s : results) {
+			System.out.println(s);
+		}
+	}
+
 
 	private void jdbcTest() {
 		Connection conn = null;
