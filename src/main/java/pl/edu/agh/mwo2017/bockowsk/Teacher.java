@@ -1,5 +1,6 @@
 package pl.edu.agh.mwo2017.bockowsk;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Teacher {
@@ -73,7 +74,14 @@ public class Teacher {
 	public void setLectures(Set<SchoolClass> lectures) {
 		this.charges = lectures;
 	}
-
+	
+	public void addCharges(SchoolClass schoolClass) {
+		if (charges == null) {
+			charges=new HashSet<SchoolClass>(); 
+		}
+		charges.add(schoolClass);
+	}
+	
 	@Override
 	public String toString() {
 		return "Teacher [id=" + id + ", name=" + name + ", surname=" + surname + ", title=" + title + ", pesel=" + pesel

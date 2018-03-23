@@ -12,6 +12,7 @@ public class SchoolClass implements java.io.Serializable {
 	private int school_id;
 
 	private Set<Student> students;
+	private Set<Teacher> teachers;
 
 	// KONSTRUKTORY:
 
@@ -86,5 +87,19 @@ public class SchoolClass implements java.io.Serializable {
 			students=new HashSet<Student>();
 		}
 		students.add(student);
+	}
+
+	public Set<Teacher> getTeachers() {
+		return teachers;
+	}
+
+	public void setTeachers(Set<Teacher> teachers) {
+		this.teachers = teachers;
+	}
+	public void addTeacher(Teacher teacher) {
+		if (teachers == null) {
+			HashSet<Teacher> teachers=new HashSet<Teacher>();
+		}
+		teachers.add(teacher);
 	}
 }
