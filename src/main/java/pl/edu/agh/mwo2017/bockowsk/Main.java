@@ -23,36 +23,7 @@ public class Main {
 		// main.jdbcTest();
 		// main.printSchools();
 		// main.addNewData();
-		main.executeQueries();
-
-		// 1. Chcemy znaleźć tylko szkoły, których nazwa to UE. (Podpowiedź: użyj
-		// składni
-		// WHERE tabela.kolumna='wartosc')
-		System.out.println("==> Cwiczenie 1");
-		main.executeQuery1();
-		// 2. Wykorzystując funkcję session.delete() i analogię do tworzenia obiektów,
-		// usuń wszystkie odnalezione w powyższym punkcie szkoły.
-		System.out.println("==> Cwiczenie 2");
-		main.executeQuery2();
-		// 3. Napisz zapytanie, które zwraca ilość szkół w bazie (Podpowiedź: użyj
-		// funkcji
-		// COUNT())
-		int ile = main.executeQuery3();
-		System.out.println("==> Cwiczenie 3");
-		System.out.println("Ile szkol: " + ile);
-		// 4. Napisz zapytanie, które zwraca ilość studentów w bazie.
-		System.out.println("==> Cwiczenie 4");
-		ile = main.executeQuery4();
-		System.out.println("Ilu studentow: " + ile);
-		// 5. Napisz zapytanie, które zwraca wszystkie szkoły o liczbie klas większej
-		// lub równej 2.
-		System.out.println("==> Cwiczenie 5");
-		main.executeQuery5();
-		// 6. Poniższe zapytanie wyszukuje szkołę, w której występuje klasa o profilu
-		// “biol-chem”. Bazując na tym zapytaniu napisz nowe zapytanie, które wyszukuje
-		// szkołę z klasą o profilu mat-fiz oraz obecnym roku większym bądź równym 2
-		System.out.println("==> Cwiczenie 6");
-		main.executeQuery6();
+		// Cwiczenie 6 - przygotowane do sprawdzenia
 		main.addNewData2();
 		main.close();
 
@@ -100,8 +71,8 @@ public class Main {
 	}
 
 	private void addNewData2() {
-		Teacher teacher1=new Teacher("Jacek", "dajda", "dr", "80210298675");
-		Teacher teacher2=new Teacher("Wojciech", "Fracz", "dr", "82210255675");
+		Teacher teacher1=new Teacher("Marek", "Gajecki", "dr", "52210298675");
+		Teacher teacher2=new Teacher("Aleksander", "Byrski", "dr", "58210255675");
 		String hql = "FROM SchoolClass as classes";
 		Query query = session.createQuery(hql);
 		List<SchoolClass> results = query.list();
